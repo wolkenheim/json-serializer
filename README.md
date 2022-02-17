@@ -81,4 +81,8 @@ Let´s run the class: `vendor/bin/phpunit ./tests/Unit/JsonSerializer/JsonSerial
 ## Part 2: Entering Reflection
 Now this is not very impressive so far. All we got is the same as before just with more classes. Now comes the interesting 
 challenge: getting the types and attributes out of the objects. `get_object_vars()` will retrieve properties, but not the
-attributes. So, ReflectionClass it is.
+attributes. ReflectionClass can be initialized with `new \ReflectionClass($data)` and traversed with `$class->getProperties()
+The idea is: extract a set of rules from the metadata of the class for each property. Then use these rules to process the
+object and map it to a normalized array.
+I introduced the PropertyRule class, which represents the set of rules for one class property. The PropertyRuleMapper extracts
+those rules.

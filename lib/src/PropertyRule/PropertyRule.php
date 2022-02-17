@@ -1,13 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\JsonSerializer\Domain;
+namespace Wolkenheim\JsonSerializer\PropertyRule;
 
-class User
+class PropertyRule
 {
     public function __construct(
         public string $name,
-        protected string $hidden
     )
     {
     }

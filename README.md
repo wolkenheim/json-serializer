@@ -93,4 +93,6 @@ Reflection gives us a handle to all properties, but we should not try to access 
 `Error: Cannot access protected property Tests\Unit\JsonSerializer\Domain\User::$hidden`
 
 That´s why there needs to be a "isIgnored" method in the PropertyRuleMapper. Protected and Private properties will not 
-be processed.
+be processed. This method will come in handy in a minute for another purpose. This works, the test still runs and gives the same result.
+
+Now we set up the project to extract information from the input classes using reflection.

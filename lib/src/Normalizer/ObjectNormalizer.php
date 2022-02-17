@@ -6,7 +6,7 @@ namespace Wolkenheim\JsonSerializer\Normalizer;
 use Wolkenheim\JsonSerializer\Exception\TypeNotObjectException;
 
 
-class ObjectNormalize implements Normalize
+class ObjectNormalizer implements Normalize
 {
     /**
      * @throws TypeNotObjectException
@@ -17,8 +17,7 @@ class ObjectNormalize implements Normalize
             throw new TypeNotObjectException();
         }
 
-        return [];
-
+        return (array) $data;
     }
 
 }

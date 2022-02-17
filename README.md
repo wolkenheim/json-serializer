@@ -74,6 +74,7 @@ I introduced an interface Normalize `public function normalize(mixed $data): mix
 data. There could be an ArrayNormalizer and so on. In this project there should be only the ObjectNormalizer. All other
 input data cannot be processed and will throw a TypeNotObjectException. In general the Serializer class needs to pick a
 normalization strategy according to the type of the input data. There will be only objects, so that is easy.
+The object normalizer will transform the object to an array for now using type casting: `return (array) $data`
 
 Let´s run the class: `vendor/bin/phpunit ./tests/Unit/JsonSerializer/JsonSerializerTest.php`
 

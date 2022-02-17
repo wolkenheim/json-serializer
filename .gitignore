@@ -2,3 +2,4 @@ _INFRA
 .DS_Store
 .idea
 vendor
+.phpunit.result.cache

@@ -3,8 +3,13 @@ declare(strict_types=1);
 
 namespace Wolkenheim\JsonSerializer\PropertyRule;
 
+use Symfony\Component\VarDumper\VarDumper;
 use Wolkenheim\JsonSerializer\Attributes\JsonIgnore;
 use Wolkenheim\JsonSerializer\Attributes\JsonProperty;
+use Wolkenheim\JsonSerializer\Attributes\JsonSerialize;
+use Wolkenheim\JsonSerializer\Exception\InvalidFormatClassException;
+use Wolkenheim\JsonSerializer\Exception\InvalidFormatterClassException;
+use Wolkenheim\JsonSerializer\FieldFormat\Format;
 
 class PropertyRuleMapper
 {
@@ -33,10 +38,42 @@ class PropertyRuleMapper
                 new PropertyRule(
                     $property->getName(),
                     $this->getJsonName($property),
+                    $this->getFieldFormatClass($property)
                 );
 
         }
         return $metadataProperties;
+    }
+
+    /**
+     * Get processing class for field value
+     */
+    public function getFieldFormatClass(\ReflectionProperty $property): ?string
+    {
+        if (!is_null($attributeFormatClass = $this->getAttributeFormatClass($property))) {
+            return $attributeFormatClass;
+        }
+        return null;
+    }
+
+    /**
+     * Custom Value Format Rules when PHP Attributes are used
+     * @throws InvalidFormatClassException
+     */
+    public function getAttributeFormatClass(\ReflectionProperty $property): ?string
+    {
+        foreach ($property->getAttributes() as $attribute) {
+            if ($attribute->getName() === JsonSerialize::class) {
+                $formatterClass = $attribute->getArguments()[0];
+
+                $interfaces = class_implements($formatterClass);
+                if(is_array($interfaces) && in_array(Format::class, $interfaces)){
+                    return $formatterClass;
+                }
+                throw new InvalidFormatClassException();
+            }
+        }
+        return null;
     }
 
     public function hasJsonIgnoreAttribute(\ReflectionProperty $property): bool

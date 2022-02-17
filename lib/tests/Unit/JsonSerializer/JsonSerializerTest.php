@@ -17,7 +17,7 @@ class JsonSerializerTest extends TestCase
         $json = $serializer->serialize(UserFactory::make());
         VarDumper::dump($json);
 
-        $this->assertEquals('{"name":"Matt"}', $json);
+        $this->assertEquals('{"name":"Matt","different_name":"Waititi","status":"ACTIVE"}', $json);
     }
 
 }

@@ -118,3 +118,7 @@ both of string type. It´s serializedName for JsonProperty and className for Jso
 
 I added the getJsonName() method to extract the new Name property and add it to a new attribute in the PropertyRule 
 object. 
+
+Nothing is happening though. We just extracted the rule but didn´t implement any functionality yet. buildNormalizedArray()
+in ObjectNormalizer class needs to handle this. The new getKey() method will handle this. If the jsonName attribute is 
+set, use it. If not, return the properties name. This works. Output is now `'{"name":"Matt","different_name":"Waititi"}'`

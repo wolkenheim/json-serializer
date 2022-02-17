@@ -33,9 +33,17 @@ class ObjectNormalizer implements Normalize
     {
         $normalized = [];
         foreach ($rules as $propertyRule) {
-            $normalized[$propertyRule->name] = $data->{$propertyRule->name};
+            $normalized[$this->getKey($propertyRule)] = $data->{$propertyRule->name};
         }
         return $normalized;
+    }
+
+    public function getKey(PropertyRule $propertyRule): string
+    {
+        if (!is_null($propertyRule->jsonName)) {
+            return $propertyRule->jsonName;
+        }
+        return $propertyRule->name;
     }
 
 }

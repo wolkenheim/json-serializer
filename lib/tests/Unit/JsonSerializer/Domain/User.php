@@ -12,7 +12,7 @@ class User
         public string    $name,
         protected string $hidden,
                          #[JsonIgnore]
-        public string $anotherName = "ignored name",
+        public string $anotherName,
                          #[JsonProperty("different_name")]
         public string $differentName,
     )

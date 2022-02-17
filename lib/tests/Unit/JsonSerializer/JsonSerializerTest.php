@@ -14,6 +14,8 @@ class JsonSerializerTest extends \PHPUnit\Framework\TestCase
         $serializer = new JsonSerializer();
         $json = $serializer->serialize(new User("Matt"));
         VarDumper::dump($json);
+
+        $this->assertEquals('{"name":"Matt"}', $json);
     }
 
 }

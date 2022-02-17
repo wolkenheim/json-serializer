@@ -96,3 +96,6 @@ That´s why there needs to be a "isIgnored" method in the PropertyRuleMapper. Pr
 be processed. This method will come in handy in a minute for another purpose. This works, the test still runs and gives the same result.
 
 Now we set up the project to extract information from the input classes using reflection.
+
+## Part 3: Attributes
+Now for the [attributes](https://www.php.net/manual/en/language.attributes.overview.php). 

@@ -128,4 +128,10 @@ string types. Scalar value in general (string, bool, int, float) are easy when i
 This is different for objects. Let´s introduce a UserStatus enum.
 
 This will break the application as the ObjectNormalizer has no way how to handle that type. We need an EnumFormat class
-for that case. 
+for that case. This needs to go to the UserStatus property in the User class for now.
+```
+#[JsonSerialize(EnumFormat::class)]
+public UserStatus $status,
+```
+This works. Now the whole serialization process is extendable. Need a custom mapping for an object? Just implement 
+the format interface and hook into the process with the JsonSerialize attribute.

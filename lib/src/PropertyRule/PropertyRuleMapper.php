@@ -41,7 +41,6 @@ class PropertyRuleMapper
         if ($property->isPrivate() || $property->isProtected()) {
             return true;
         }
-
         return false;
     }
 }

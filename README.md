@@ -86,3 +86,11 @@ The idea is: extract a set of rules from the metadata of the class for each prop
 object and map it to a normalized array.
 I introduced the PropertyRule class, which represents the set of rules for one class property. The PropertyRuleMapper extracts
 those rules.
+
+But first one thing: visibility. This has not been an issue yet with only one public variable. I´ll throw in a protected class property.
+Reflection gives us a handle to all properties, but we should not try to access it´s values. This will result in a exceptio
+
+`Error: Cannot access protected property Tests\Unit\JsonSerializer\Domain\User::$hidden`
+
+That´s why there needs to be a "isIgnored" method in the PropertyRuleMapper. Protected and Private properties will not 
+be processed.

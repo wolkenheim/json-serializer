@@ -7,6 +7,7 @@ class PropertyRule
 {
     public function __construct(
         public string $name,
+        public ?string $jsonName,
     )
     {
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Wolkenheim\JsonSerializer\PropertyRule;
 
 use Wolkenheim\JsonSerializer\Attributes\JsonIgnore;
+use Wolkenheim\JsonSerializer\Attributes\JsonProperty;
 
 class PropertyRuleMapper
 {
@@ -31,6 +32,7 @@ class PropertyRuleMapper
             $metadataProperties[] =
                 new PropertyRule(
                     $property->getName(),
+                    $this->getJsonName($property),
                 );
 
         }
@@ -45,6 +47,16 @@ class PropertyRuleMapper
             }
         }
         return false;
+    }
+
+    public function getJsonName(\ReflectionProperty $property): ?string
+    {
+        foreach ($property->getAttributes() as $attribute) {
+            if ($attribute->getName() === JsonProperty::class) {
+                return $attribute->getArguments()[0];
+            }
+        }
+        return null;
     }
 
 

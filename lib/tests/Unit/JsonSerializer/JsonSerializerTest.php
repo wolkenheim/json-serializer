@@ -14,7 +14,7 @@ class JsonSerializerTest extends TestCase
     /** @test */
     public function serializeObject() : void {
         $serializer = new JsonSerializer(new ObjectNormalizer());
-        $json = $serializer->serialize(new User("Matt", "Berry"));
+        $json = $serializer->serialize(new User("Matt", "Berry", "Taika", "Waititi"));
         VarDumper::dump($json);
 
         $this->assertEquals('{"name":"Matt"}', $json);

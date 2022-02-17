@@ -114,4 +114,7 @@ Now for some reasoning for the next attributes.`JsonProperty("new_name")` will u
 property. So the key 'myName' will be represented as 'new_name' in its JSON format. 
 `JsonSerialize(CustomFieldFormat::class)` will use a custom class to process the value. Hence, we have 
 attributes that mutate the given key or its value. Both attributes have in common that they need to store information,
-both of string type. It´s jsonName for JsonProperty and className for JsonSerialize.
+both of string type. It´s serializedName for JsonProperty and className for JsonSerialize.
+
+I added the getJsonName() method to extract the new Name property and add it to a new attribute in the PropertyRule 
+object. 

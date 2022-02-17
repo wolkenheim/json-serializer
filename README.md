@@ -36,7 +36,8 @@ I wanted something simpler. In a small project I will never ever need XML parsin
 always be JSON parsing. And I´m not aiming for the best library that handles all edge cases. But a proof of concept
 that will work.
 
-Is there an alternative approach so solve this? Yes, your classes can implement the interface [jsonSerializable](https://www.php.net/manual/en/jsonserializable.jsonserialize.php)
+Is there an alternative approach so solve this? Yes, your classes can implement the interface 
+[jsonSerializable](https://www.php.net/manual/en/jsonserializable.jsonserialize.php)
 This works out of the box and no libraries are needed. 
 
 What I don´t like about this approach:
@@ -51,7 +52,8 @@ according to these rules.
 
 ## Mission statement
 build a JSON Serializer that takes a Plain Old PHP Object (POPO) and encodes it as JSON string. The
-output data is not the same as the input. It should require zero dependencies (except development). I should use native PHP8.0 and 8.1 features.
+output data is not the same as the input. It should require zero dependencies (except development). I should use 
+native PHP8.0 and 8.1 features.
 
 This is a library project. No webserver is needed and development can be done inside phpunit.
 
@@ -84,18 +86,24 @@ challenge: getting the types and attributes out of the objects. `get_object_vars
 attributes. ReflectionClass can be initialized with `new \ReflectionClass($data)` and traversed with `$class->getProperties()
 The idea is: extract a set of rules from the metadata of the class for each property. Then use these rules to process the
 object and map it to a normalized array.
-I introduced the PropertyRule class, which represents the set of rules for one class property. The PropertyRuleMapper extracts
-those rules.
+I introduced the PropertyRule class, which represents the set of rules for one class property. The PropertyRuleMapper 
+extracts those rules.
 
-But first one thing: visibility. This has not been an issue yet with only one public variable. I´ll throw in a protected class property.
-Reflection gives us a handle to all properties, but we should not try to access it´s values. This will result in a exceptio
+But first one thing: visibility. This has not been an issue yet with only one public variable. I´ll throw in a protected 
+class property. Reflection gives us a handle to all properties, but we should not try to access it´s values. This will 
+result in a exception
 
 `Error: Cannot access protected property Tests\Unit\JsonSerializer\Domain\User::$hidden`
 
 That´s why there needs to be a "isIgnored" method in the PropertyRuleMapper. Protected and Private properties will not 
-be processed. This method will come in handy in a minute for another purpose. This works, the test still runs and gives the same result.
+be processed. This method will come in handy in a minute for another purpose. This works, the test still runs and gives 
+the same result.
 
 Now we set up the project to extract information from the input classes using reflection.
 
 ## Part 3: Attributes
-Now for the [attributes](https://www.php.net/manual/en/language.attributes.overview.php). 
+Now for the [attributes](https://www.php.net/manual/en/language.attributes.overview.php). Add a JsonIgnore attribute class
+and use it on a new property in the User class. Nothing happens, test fails. Of course there is no logic yet involved.
+We need to define a rule. Let´s use the isIgnored() method for that. Loop through all attributes of the property `$property->getAttributes()`
+and if JsonIgnore is found, do not use that property. Believe it or not - this is the implementation of the first,
+working annotation.

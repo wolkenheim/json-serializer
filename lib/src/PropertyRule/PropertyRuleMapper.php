@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Wolkenheim\JsonSerializer\PropertyRule;
 
+use Wolkenheim\JsonSerializer\Attributes\JsonIgnore;
+
 class PropertyRuleMapper
 {
     public function __construct(
@@ -23,7 +25,7 @@ class PropertyRuleMapper
     {
         $metadataProperties = [];
         foreach ($class->getProperties() as $property) {
-            if($this->isIgnored($property)){
+            if ($this->isIgnored($property)) {
                 continue;
             }
             $metadataProperties[] =
@@ -35,12 +37,23 @@ class PropertyRuleMapper
         return $metadataProperties;
     }
 
+    public function hasJsonIgnoreAttribute(\ReflectionProperty $property): bool
+    {
+        foreach ($property->getAttributes() as $attribute) {
+            if ($attribute->getName() === JsonIgnore::class) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public function isIgnored(\ReflectionProperty $property): bool
     {
         if ($property->isPrivate() || $property->isProtected()) {
             return true;
         }
-        return false;
+
+        return $this->hasJsonIgnoreAttribute($property);
     }
 }

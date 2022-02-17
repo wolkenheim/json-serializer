@@ -5,6 +5,8 @@ namespace Tests\Unit\JsonSerializer\Domain;
 
 use Wolkenheim\JsonSerializer\Attributes\JsonIgnore;
 use Wolkenheim\JsonSerializer\Attributes\JsonProperty;
+use Wolkenheim\JsonSerializer\Attributes\JsonSerialize;
+use Wolkenheim\JsonSerializer\FieldFormat\EnumFormat;
 
 class User
 {
@@ -15,6 +17,8 @@ class User
         public string $anotherName,
                          #[JsonProperty("different_name")]
         public string $differentName,
+                         #[JsonSerialize(EnumFormat::class)]
+        public UserStatus $status,
     )
     {
     }

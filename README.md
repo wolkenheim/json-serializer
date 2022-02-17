@@ -122,3 +122,10 @@ object.
 Nothing is happening though. We just extracted the rule but didn´t implement any functionality yet. buildNormalizedArray()
 in ObjectNormalizer class needs to handle this. The new getKey() method will handle this. If the jsonName attribute is 
 set, use it. If not, return the properties name. This works. Output is now `'{"name":"Matt","different_name":"Waititi"}'`
+
+Now before we continue, let´s spice things up a bit. We haven´t talked about complex types yet. So far we had only 
+string types. Scalar value in general (string, bool, int, float) are easy when it comes to JSON. No action is needed.
+This is different for objects. Let´s introduce a UserStatus enum.
+
+This will break the application as the ObjectNormalizer has no way how to handle that type. We need an EnumFormat class
+for that case. 

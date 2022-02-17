@@ -76,5 +76,9 @@ input data cannot be processed and will throw a TypeNotObjectException. In gener
 normalization strategy according to the type of the input data. There will be only objects, so that is easy.
 The object normalizer will transform the object to an array for now using type casting: `return (array) $data`
 
-Let´s run the class: `vendor/bin/phpunit ./tests/Unit/JsonSerializer/JsonSerializerTest.php`
+Let´s run the class: `vendor/bin/phpunit ./tests/Unit/JsonSerializer/JsonSerializerTest.php`. This works
 
+## Part 2: Entering Reflection
+Now this is not very impressive so far. All we got is the same as before just with more classes. Now comes the interesting 
+challenge: getting the types and attributes out of the objects. `get_object_vars()` will retrieve properties, but not the
+attributes. So, ReflectionClass it is.

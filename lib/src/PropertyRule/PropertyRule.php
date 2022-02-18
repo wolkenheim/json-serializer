@@ -6,10 +6,10 @@ namespace Wolkenheim\JsonSerializer\PropertyRule;
 class PropertyRule
 {
     public function __construct(
-        public string $name,
-        public ?string $jsonName,
-        public ?string $fieldFormatClass,
-        public PropertyType $propertyRule,
+        public string       $accessName,
+        public string       $jsonName,
+        public ?string      $fieldFormatClass,
+        public PropertyType $propertyType,
     )
     {
     }

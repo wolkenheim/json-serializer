@@ -174,4 +174,6 @@ the value of an attribute. Now the input can be a method. Currently, the ObjectN
 this call `$data->{$propertyRule->name}`. This will no longer work as we either have a property or a method call. 
 At this point I tried callables (not a valid type for a class property) and came to Closures. I stopped there as, this 
 was getting far way to complex for a simple call. The easiest thing to do this, is to introduce a new Enum to 
-differentiate between both cases.
+differentiate between both cases. Also, PropertyRule "name" is a bit vague. I decided to call it accessName for now.
+jsonName has to change as well. It cannot be null anymore but will always carry the final name of the output key in 
+json.

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\JsonSerializer\Factory;
+namespace Tests\TestHelper\Factory;
 
-use Tests\Unit\JsonSerializer\Domain\User;
-use Tests\Unit\JsonSerializer\Domain\UserStatus;
+use Tests\TestHelper\Domain\User;
+use Tests\TestHelper\Domain\UserStatus;
 
 class UserFactory
 {

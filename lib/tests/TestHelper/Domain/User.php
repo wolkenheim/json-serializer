@@ -1,12 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\JsonSerializer\Domain;
+namespace Tests\TestHelper\Domain;
 
 use Wolkenheim\JsonSerializer\Attributes\JsonIgnore;
 use Wolkenheim\JsonSerializer\Attributes\JsonProperty;
-use Wolkenheim\JsonSerializer\Attributes\JsonSerialize;
-use Wolkenheim\JsonSerializer\FieldFormat\EnumFormat;
 
 class User
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\JsonSerializer\Domain;
+namespace Tests\TestHelper\Domain;
 
 enum UserStatus
 {

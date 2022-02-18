@@ -152,3 +152,7 @@ to a new ReflectionPropertyMapper class.
 I added an DateTime property to the Dummy User class in tests as well. This works. No annotation - global DateTime format
 is picked and formats the date property successfully without an attribute: `"createdAt":"2022-01-22T00:00:00+0000"` We
 can also remove the attribute for the Enum property in the User class. It is still getting formatted. 
+
+Before all the checks for types where hard coded in the source code. Now there is an $defaultStrategyClassMappings array.
+This would be the first step in a refactoring towards a configuration object. At the end users of the library could 
+inject their own class definitions for default formatting options in a map-styled array.

@@ -161,3 +161,9 @@ But first tests need to be refactored. A lot of the functionality moved down to 
 out of Reflection properties. There are already a few cases here and each one should get a single unit test. I worked
 so far with a global testing strategy: check the resulting string. This is fine for very simple beginnings but the 
 project has already gotten far way to complex for that.
+
+## Part 5: Extract Getters
+So far we are only extracting public properties. And this is fine as protected and private ones should be not publicly
+available. But the usual pattern that exists is to keep all properties private or protected and add Getters and Setters.
+So in fact a `private string $hiddenName` will have its corresponding `getHiddenName() : string` method. We used 
+Reflection to get information on properties so far. Now we need information on methods as well. 

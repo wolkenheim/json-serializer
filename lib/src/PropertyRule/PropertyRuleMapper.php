@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace Wolkenheim\JsonSerializer\PropertyRule;
 
-use Symfony\Component\VarDumper\VarDumper;
 use Wolkenheim\JsonSerializer\Attributes\JsonIgnore;
 use Wolkenheim\JsonSerializer\Attributes\JsonProperty;
 use Wolkenheim\JsonSerializer\Attributes\JsonSerialize;
 use Wolkenheim\JsonSerializer\Exception\InvalidFormatClassException;
-use Wolkenheim\JsonSerializer\Exception\InvalidFormatterClassException;
 use Wolkenheim\JsonSerializer\FieldFormat\Format;
 
 class PropertyRuleMapper

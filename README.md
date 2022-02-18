@@ -1,6 +1,7 @@
 # JSON Serializer
 
-So I´ve been thinking: how is JSON made? It´s a string representation of data. I use it every day.
+This is proof of concept or tutorial project. I´ve been thinking lately: how is JSON made? It´s a 
+string representation of data. I use it every day.
 
 My question is: How does this
 ```
@@ -16,7 +17,7 @@ become this
 '{"name" : "Matt"}
 ```
 
-How does it work under the hood? Could I do it myself? That was one topic to explore.
+How does it work under the hood? Could I do it myself? 
 
 I´ve been using a few libraries and approaches yet. That is mostly Spring Boot with the bundled Jackson Object Mapper.
 This is the approach I was aiming for. Simple Java classes (Plain Old Java Object - POJO) can get transformed to JSON.
@@ -24,39 +25,44 @@ There are a few annotations that can be used like @JsonIgnore. So the correspond
 haven´t seen Jackson yet - here is a brief [introduction](https://www.baeldung.com/jackson-annotations)
 
 Just to be on the safe side. Programming languages invent their own lingo for the same concepts. In PHP
-[Attribute](https://www.php.net/manual/en/language.attributes.overview.php), introduced in PHP8, is what Annotation would be in Java: metadata
-on class field. Annotations do exist in PHP as well as docblock comments. Docblock Annotations were used prior to Attributes, were not part of the 
-standard library, and can be replaced by native Attributes.
-Any class member variables are called [Property](https://www.php.net/manual/en/language.oop5.properties.php). That would
-be an "Attribute" in Java to maximize the confusion.
+[Attribute](https://www.php.net/manual/en/language.attributes.overview.php), introduced in PHP8, is what Annotation 
+would be in Java: metadata on class field. Annotations do exist in PHP as well as docblock comments. Docblock 
+Annotations were used prior to Attributes, were not part of the standard library, and can be replaced by 
+native attributes.
+Any class member variables are called [Property](https://www.php.net/manual/en/language.oop5.properties.php). 
+That would be an "Attribute" in Java to maximize the confusion.
 
-There is already a PHP library that does that, mostly. It is https://symfony.com/doc/current/components/serializer.html
-It can be configured with a lot of options. However, it is quite big. 
+There is already a PHP library that does that, mostly. It is 
+[symfony/serializer](https://symfony.com/doc/current/components/serializer.html)
+It can be configured with a lot of options. However, it is quite big.
+The other main library is [schmittjoh/serializer](https://github.com/schmittjoh/serializer)
 
-I wanted something simpler. In a small project I will never ever need XML parsing. Or Content negotiation. It will be
-always be JSON parsing. And I´m not aiming for the best library that handles all edge cases. But a proof of concept
-that will work.
+It´s not the goal to compete with them. Hundreds of hours of work went into those libraries.
+I want to build something smaller. In a small project I will never ever need XML parsing. Or Content negotiation. 
+It will be always be JSON parsing. And I´m not aiming for the best library that handles all edge cases. But a proof 
+of concept that will work.
 
 Is there an alternative approach so solve this? Yes, your classes can implement the interface 
 [jsonSerializable](https://www.php.net/manual/en/jsonserializable.jsonserialize.php)
 This works out of the box and no libraries are needed. 
 
 What I don´t like about this approach:
-* It bloats your class files. 
+* It bloats your classes. The base of OOP is to favor composition - instead of implementing all functionality
+in the class itself
 * A lot of writing. You need to define a mapping for all attributes in your classes
-* Type information is lost. All you can read is the name of the keys. But not their type.
+* Type information is lost. All you can read is the name of the keys. But not their type
 * How do you guarantee that e.g. DateTime objects are always represented in the same format?
 
 This is however a good option if you have a lot of custom transformations and renaming of keys. The `symfony/serializer`
 and Jackson approach is a **rule based approach**. You define global and custom rules how certain type of data is mapped
 according to these rules.
 
-## Mission statement
-build a JSON Serializer that takes a Plain Old PHP Object (POPO) and encodes it as JSON string. The
-output data is not the same as the input. It should require zero dependencies (except development). I should use 
-native PHP8.0 and 8.1 features.
+## Project statement
+Let´s build a JSON Serializer that takes a Plain Old PHP Object (POPO) and encodes it as JSON string. The
+output data might not the same as the input. It should require zero dependencies (except development) and use the 
+standard library only. It should use PHP8.0 and 8.1 features. No backward compatibility.
 
-This is a library project. No webserver is needed and development can be done inside phpunit.
+The result should be a library package. No webserver is needed and development can be done inside phpunit.
 
 ## Part 1: The Basics
 The simplest encoding strategy I can think of is `json_encode(new User("Matt"))`. 
@@ -135,3 +141,10 @@ public UserStatus $status,
 ```
 This works. Now the whole serialization process is extendable. Need a custom mapping for an object? Just implement 
 the format interface and hook into the process with the JsonSerialize attribute.
+
+## Part 4: Default formatting for certain types
+All works fine, there is a problem though. Format classes have to be used for complex types. That means a lot of 
+writing attributes in classes. Not ideal. So it would be good to have a default formatting strategy for those types.
+DateTime class is another candidate here. Dates have to be parsed.
+Most methods in PropertyRuleMapper take currently ReflectionProperty as an argument. A refactoring can be made here
+to a new ReflectionPropertyMapper class.

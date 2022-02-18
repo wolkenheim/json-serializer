@@ -9,6 +9,7 @@ class PropertyRule
         public string $name,
         public ?string $jsonName,
         public ?string $fieldFormatClass,
+        public PropertyType $propertyRule,
     )
     {
     }

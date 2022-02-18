@@ -39,7 +39,8 @@ class PropertyRuleMapper
                 new PropertyRule(
                     $reflectionPropertyMapper->getName($property),
                     $reflectionPropertyMapper->getJsonName($property),
-                    $reflectionPropertyMapper->getFieldFormatClass($property)
+                    $reflectionPropertyMapper->getFieldFormatClass($property),
+                    PropertyType::PROPERTY
                 );
         }
         return $metadataProperties;

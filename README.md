@@ -166,4 +166,12 @@ project has already gotten far way to complex for that.
 So far we are only extracting public properties. And this is fine as protected and private ones should be not publicly
 available. But the usual pattern that exists is to keep all properties private or protected and add Getters and Setters.
 So in fact a `private string $hiddenName` will have its corresponding `getHiddenName() : string` method. We used 
-Reflection to get information on properties so far. Now we need information on methods as well. 
+Reflection to get information on properties so far. Now we need information on methods as well.
+
+There are some crucial changes now. Before we could roughly say that the resulting array would be of the same size
+or smaller as the number of attributes. Public ones minus private / protected ones. That also meant our input was always
+the value of an attribute. Now the input can be a method. Currently, the ObjectNormalizer retrieves the value with 
+this call `$data->{$propertyRule->name}`. This will no longer work as we either have a property or a method call. 
+At this point I tried callables (not a valid type for a class property) and came to Closures. I stopped there as, this 
+was getting far way to complex for a simple call. The easiest thing to do this, is to introduce a new Enum to 
+differentiate between both cases.

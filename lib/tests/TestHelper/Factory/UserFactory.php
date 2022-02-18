@@ -15,7 +15,8 @@ class UserFactory
             "Taika",
             "Waititi",
             UserStatus::ACTIVE,
-            new \DateTime('2022-01-22')
+            new \DateTime('2022-01-22'),
+            "this is a small caps description"
         );
     }
 }

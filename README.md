@@ -176,4 +176,4 @@ At this point I tried callables (not a valid type for a class property) and came
 was getting far way to complex for a simple call. The easiest thing to do this, is to introduce a new Enum to 
 differentiate between both cases. Also, PropertyRule "name" is a bit vague. I decided to call it accessName for now.
 jsonName has to change as well. It cannot be null anymore but will always carry the final name of the output key in 
-json.
+json. 

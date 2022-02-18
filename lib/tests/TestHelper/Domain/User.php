@@ -13,9 +13,9 @@ class User
     public function __construct(
         public string    $name,
         protected string $hidden,
-                         #[JsonIgnore]
+        #[JsonIgnore]
         public string $anotherName,
-                         #[JsonProperty("different_name")]
+        #[JsonProperty("different_name")]
         public string $differentName,
         public UserStatus $status,
         public \DateTime $createdAt,

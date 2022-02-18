@@ -41,12 +41,7 @@ class PropertyRuleMapper
                     $reflectionPropertyMapper->getJsonName($property),
                     $reflectionPropertyMapper->getFieldFormatClass($property)
                 );
-
         }
         return $metadataProperties;
     }
-
-
-
-
 }

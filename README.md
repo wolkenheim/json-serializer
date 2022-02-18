@@ -157,3 +157,7 @@ Before all the checks for types where hard coded in the source code. Now there i
 This would be the first step in a refactoring towards a configuration object. At the end users of the library could 
 inject their own class definitions for default formatting options in a map-styled array.
 
+But first tests need to be refactored. A lot of the functionality moved down to the classes, that extract information 
+out of Reflection properties. There are already a few cases here and each one should get a single unit test. I worked
+so far with a global testing strategy: check the resulting string. This is fine for very simple beginnings but the 
+project has already gotten far way to complex for that.

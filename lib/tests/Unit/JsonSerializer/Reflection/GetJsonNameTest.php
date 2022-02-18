@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Tests\Unit\JsonSerializer\Reflection;
 
-use Symfony\Component\VarDumper\VarDumper;
 use Wolkenheim\JsonSerializer\Reflection\ReflectionPropertyMapper;
 
 class GetJsonNameTest extends ReflectionPropertyMapperBase

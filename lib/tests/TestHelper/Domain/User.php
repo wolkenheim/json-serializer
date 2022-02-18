@@ -24,4 +24,15 @@ class User
     )
     {
     }
+
+    public function getHidden(): string
+    {
+        return $this->hidden;
+    }
+
+    public function getComputedDate(): \DateTime
+    {
+        return new \DateTime('2021-07-23');
+    }
+
 }

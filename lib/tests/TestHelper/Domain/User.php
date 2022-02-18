@@ -6,7 +6,7 @@ namespace Tests\TestHelper\Domain;
 use Wolkenheim\JsonSerializer\Attributes\JsonIgnore;
 use Wolkenheim\JsonSerializer\Attributes\JsonProperty;
 use Wolkenheim\JsonSerializer\Attributes\JsonSerialize;
-use Wolkenheim\TestHelper\Format\CustomStringToUpperFormat;
+use Wolkenheim\JsonSerializer\FieldFormat\StringToUpperFormat;
 
 class User
 {
@@ -19,7 +19,7 @@ class User
         public string $differentName,
         public UserStatus $status,
         public \DateTime $createdAt,
-        #[JsonSerialize(CustomStringToUpperFormat::class)]
+        #[JsonSerialize(StringToUpperFormat::class)]
         public string $description
     )
     {

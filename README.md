@@ -42,7 +42,7 @@ I want to build something smaller. In a small project I will never ever need XML
 It will be always be JSON parsing. And I´m not aiming for the best library that handles all edge cases. But a proof 
 of concept that will work.
 
-Is there an alternative approach so solve this? Yes, your classes can implement the interface 
+Is there an alternative approach to solve this? Yes, your classes can implement the interface 
 [jsonSerializable](https://www.php.net/manual/en/jsonserializable.jsonserialize.php)
 This works out of the box and no libraries are needed. 
 
@@ -177,3 +177,32 @@ was getting far way to complex for a simple call. The easiest thing to do this, 
 differentiate between both cases. Also, PropertyRule "name" is a bit vague. I decided to call it accessName for now.
 jsonName has to change as well. It cannot be null anymore but will always carry the final name of the output key in 
 json. 
+
+## Conclusion
+Time for wrapping it up. I learned a lot while doing this project. And I know a lot more what I don´t know. So here
+are the things I didn´t cover:
+
+I did not handle nested types or custom classes as attributes. What if class User has the attribute Product? The 
+normalizer should be able to handle that case in a real life situation. I did not handle **union types**. 
+
+I learned that the ReflectionClass treats "string|null" not as a union but type 
+string that is nullable. A union would be "string|int". There could be a lot of interesting edge cases here. Even more
+challenging is type "mixed", the PHP equivalent to the "any" type in TypeScript. Reflection won´t help here, methods
+to extract the type from a variable are needed. That would be [getType()](https://www.php.net/manual/en/function.gettype) 
+. There is a catch. The types it returns are not the same as used by the Reflection classes. This function is quite 
+old, but there is a new alternative out for PHP8 [get_debug_type()](https://www.php.net/manual/en/function.get-debug-type.php)
+This would be needed especially to tackle the tricky cases of **arrays**. Here a plethora of problems arise which I 
+did not cover. There is another catch here: Reflection has also to handle the deserialization and denormalization
+process. In that case it could make sense to inspect a class without any data in it. Therefore, it would make sense 
+to keep all the value based type inspection out. 
+
+Keep in mind that reflection is quite inefficient. In this project every time an object gets processed the 
+reflection for its underlying class is done, again and again. This is only necessary in case of the event when 
+the underlying class changes. There are no file watchers in PHP but in a production setup all the reflection 
+processing could get cached. At least this is what the symfony/serializer offers. This leads to the question of
+caching and this is bound most likely to a framework. Same goes for configuration which needs some kind of class 
+and environment loading library. 
+
+The goal of this project was to keep things agnostic from any framework and simple. As I said: I learned a lot by doing
+this, and I hope you too. Thank you for reading.
+

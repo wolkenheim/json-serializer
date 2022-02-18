@@ -14,7 +14,8 @@ class UserFactory
             "Berry",
             "Taika",
             "Waititi",
-            UserStatus::ACTIVE
+            UserStatus::ACTIVE,
+            new \DateTime('2022-01-22')
         );
     }
 }

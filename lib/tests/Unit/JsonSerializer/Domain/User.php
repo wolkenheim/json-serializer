@@ -17,8 +17,8 @@ class User
         public string $anotherName,
                          #[JsonProperty("different_name")]
         public string $differentName,
-                         #[JsonSerialize(EnumFormat::class)]
         public UserStatus $status,
+        public \DateTime $createdAt,
     )
     {
     }

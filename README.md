@@ -145,6 +145,10 @@ the format interface and hook into the process with the JsonSerialize attribute.
 ## Part 4: Default formatting for certain types
 All works fine, there is a problem though. Format classes have to be used for complex types. That means a lot of 
 writing attributes in classes. Not ideal. So it would be good to have a default formatting strategy for those types.
-DateTime class is another candidate here. Dates have to be parsed.
+DateTime class is another candidate here. Dates have to be parsed. We chose a global ISO8601 option for now.
 Most methods in PropertyRuleMapper take currently ReflectionProperty as an argument. A refactoring can be made here
 to a new ReflectionPropertyMapper class.
+
+I added an DateTime property to the Dummy User class in tests as well. This works. No annotation - global DateTime format
+is picked and formats the date property successfully without an attribute: `"createdAt":"2022-01-22T00:00:00+0000"` We
+can also remove the attribute for the Enum property in the User class. It is still getting formatted. 

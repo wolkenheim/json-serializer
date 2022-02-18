@@ -156,3 +156,4 @@ can also remove the attribute for the Enum property in the User class. It is sti
 Before all the checks for types where hard coded in the source code. Now there is an $defaultStrategyClassMappings array.
 This would be the first step in a refactoring towards a configuration object. At the end users of the library could 
 inject their own class definitions for default formatting options in a map-styled array.
+

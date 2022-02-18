@@ -9,5 +9,4 @@ class StringToUpperFormat implements Format
     {
         return strtoupper($value);
     }
-
 }
